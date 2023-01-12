@@ -1,0 +1,18 @@
+.container{
+    display:flex;
+    margin: 10px;
+    justify-content: space-around;
+    align-items:center;
+}
+.span{
+    text-align: left;
+}
+
+.select_block {
+    text-align: left;
+}
+.wrap{
+    max-width: 700px;
+    height: 100vh;
+    padding: 20px;
+}
