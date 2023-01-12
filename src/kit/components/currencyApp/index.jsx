@@ -26,6 +26,7 @@ const CurrencyApp = () => {
     })
     const [from, setFrom] = useState(null)
     const [to, setTo] = useState(null)
+    const [isDisabled, setIsDesabled] = useState(false)
 
     const BASE_URL_Symbols = "https://api.apilayer.com/fixer/symbols"
     // const BASE_URL_Convert ="https://api.apilayer.com/fixer/convert?to={to}&from={from}&amount={amount}"
@@ -74,14 +75,18 @@ const CurrencyApp = () => {
     }
     const handleConvertButton = async() => {
         try{
+            setIsDesabled(true)
             const res = await fetch(`https://api.apilayer.com/fixer/convert?to=${to.value}&from=${from.value}&amount=${inputValue}`, requestOptions)
             const data = await res.json()
             setRes({
                 result: Math.round(data.result),
                 symbol:getSymbolFromCurrency(`${to.value}`)
             })
+
         } catch(e){
             console.log(e)
+        } finally {
+            setIsDesabled(false)
         }
     }
     return (
@@ -160,6 +165,7 @@ const CurrencyApp = () => {
                         variant="contained" 
                         sx={{ width:300, backgroundColor:'#7ee3e7'}}
                         onClick={handleConvertButton}
+                        disabled={isDisabled}
                         >
                         Convert
                         </Button>
